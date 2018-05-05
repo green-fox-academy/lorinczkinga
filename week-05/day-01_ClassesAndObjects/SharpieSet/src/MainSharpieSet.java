@@ -10,6 +10,8 @@ public class MainSharpieSet {
         }
         System.out.println(sharpieset.countUsable());
 
-
+        System.out.println(sharpieset.SharpieList.size());
+        sharpieset.removeTrash();
+        System.out.println(sharpieset.SharpieList.size());
     }
 }

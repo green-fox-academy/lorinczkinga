@@ -17,4 +17,12 @@ public class SharpieSet {
         }
        return count;
     }
+
+    public void removeTrash() {
+        for (int i = 0; i < SharpieList.size(); i++) {
+            if (SharpieList.get(i).inkAmount == 0) {
+                SharpieList.remove(i);
+            }
+        }
+    }
 }
