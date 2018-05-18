@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +12,7 @@ public class PrintEachLine {
             for (int i = 0; i < lines.size(); i++) {
                 System.out.println(lines.get(i));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Could not read the file");
         }
     }
