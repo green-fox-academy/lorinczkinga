@@ -19,9 +19,9 @@ public class ReversedLines {
 
             for (int i = 0; i < originalText.size(); i++) {
                 decryptedText.add(i, "");
-                int size = originalText.get(i).length();
-                for (int j = 1; j < size+1; j++) {
-                    decryptedText.set(i, decryptedText.get(i).concat("" + originalText.get(i).charAt(size - j)));
+                for (int j = 1; j < originalText.get(i).length()+1; j++) {
+                    decryptedText.set(i, decryptedText.get(i)
+                            .concat("" + originalText.get(i).charAt(originalText.get(i).length() - j)));
                 }
             }
             Path decryptedPath = Paths.get("decryptedReversedLines.txt");
