@@ -23,7 +23,7 @@ public class Doubled {
                     }
                 }
             }
-            Path decryptedPath = Paths.get("decryptedText.txt");
+            Path decryptedPath = Paths.get("decryptedDuplicatedChars.txt");
             Files.write(decryptedPath, decryptedText);
             return decryptedText;
 
