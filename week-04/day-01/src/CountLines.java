@@ -5,9 +5,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class CountLines {
-    
+
     public static void main(String[] args) {
-        String filename = "my-file.txt";
+        String filename = "my-file1.txt";
         System.out.println(countLines(filename));
     }
 
