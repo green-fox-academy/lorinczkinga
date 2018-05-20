@@ -17,9 +17,9 @@ public class ReversedOrder {
         try {
             List<String> originalText = new ArrayList<>(Files.readAllLines(path));
 
-            for (int i = 1; i < originalText.size()+1 ; i++) {
-                decryptedText.add(i-1, originalText.get(originalText.size()-i));
-                System.out.println(decryptedText.get(i-1));
+            for (int i = 1; i < originalText.size() + 1 ; i++) {
+                decryptedText.add(i - 1, originalText.get(originalText.size() - i));
+                System.out.println(decryptedText.get(i - 1));
             }
             return decryptedText;
         } catch (IOException e) {

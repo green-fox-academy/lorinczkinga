@@ -16,6 +16,5 @@ public class WriteSingleLine {
          } catch (IOException e) {
              System.out.println("Unable to write file: my-file2.txt");
          }
-
     }
 }

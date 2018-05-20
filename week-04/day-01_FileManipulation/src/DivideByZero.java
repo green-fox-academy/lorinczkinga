@@ -6,7 +6,6 @@ public class DivideByZero {
         try {
             double result = 10 / number;
             System.out.println(result);
-
         } catch (ArithmeticException e) {
             System.out.println("Can't divide by zero.");
         }

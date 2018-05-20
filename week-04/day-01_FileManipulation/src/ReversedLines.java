@@ -19,7 +19,7 @@ public class ReversedLines {
 
             for (int i = 0; i < originalText.size(); i++) {
                 decryptedText.add(i, "");
-                for (int j = 1; j < originalText.get(i).length()+1; j++) {
+                for (int j = 1; j < originalText.get(i).length() + 1; j++) {
                     decryptedText.set(i, decryptedText.get(i)
                             .concat("" + originalText.get(i).charAt(originalText.get(i).length() - j)));
                 }
