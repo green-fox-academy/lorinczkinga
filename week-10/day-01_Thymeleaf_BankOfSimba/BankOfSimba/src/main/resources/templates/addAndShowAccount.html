@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accounts</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<table style="width:50%; height:80px; font-size: large">
+    <tr style="background-color:teal">
+        <th>INDEX</th>
+        <th>NAME</th>
+        <th>BALANCE</th>
+        <th>TYPE</th>
+        <th>OWNER</th>
+        <th>ROLE</th>
+    </tr>
+    <tr th:each="currentAccount : ${accountList}" style="background-color:lightgray" align="center">
+        <td th:text="${currentAccountStat.index}"></td>
+        <td th:text="${currentAccount.name}"></td>
+        <td th:text="${currentAccount.balanceWithCurrency}"></td>
+        <td th:text="${currentAccount.animalType}"></td>
+
+        <td th:if="${currentAccount.isKing()}" style="background-color:#ffec11"> King</td>
+        <td th:unless="${currentAccount.isKing()}"> Not king</td>
+        <td th:if="${currentAccount.isGoodGuy()}" style="background-color:greenyellow"> Good guy</td>
+        <td th:unless="${currentAccount.isGoodGuy()}" style="background-color:lightcoral"> Bad guy</td>
+    </tr>
+</table>
+
+<form action="#" th:action="@{'/balance-increase'}" method="post">
+    <label for="index"> Increase the balance of...  </label>
+    <select th:name="index" id="index" >
+        <option value=""> Select index </option>
+        <option th:each="account : ${accountList}"
+                th:value="${accountStat.index}" th:text="${accountStat.index}">  </option>
+    </select>
+    <button th:type="submit" name="submit" value="submit"> Increase </button>
+</form>
+
+<form action="#" th:object="${newAccount}" th:action="@{'/create-new-account'} " method="post">
+    <p><label for="name"> Name: </label>
+        <input type="text" id="name" th:field="*{name}"/></p>
+    <p><label for="balance"> Balance value: </label>
+        <input type="text" id="balance" th:field="*{balance}"/></p>
+    <p><label for="currency"> Currency: </label>
+        <input type="text" id="currency" th:field="*{currency}"/></p>
+    <p><label for="animalyType"> Animal type: </label>
+        <input type="text" id="animalyType" th:field="*{animalType}"/></p>
+    <label for="isKing">Is it a king?</label>
+    <select id="isKing" name="isKing">
+        <option th:value="true"> Yes </option>
+        <option th:value="false"> No </option>
+    </select>
+    <label for="isGoodGuy">Is it a good guy?</label>
+    <select id="isGoodGuy" name="isGoodGuy">
+        <option th:value="true"> Yes </option>
+        <option th:value="false"> No </option>
+    </select>
+
+    <p><button th:type="submit" name="submit" value="submit"> Create</button></p>
+</form>
+</body>
+</html>

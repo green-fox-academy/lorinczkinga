@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show account</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<table style="width:50%; height:80px; font-size: large">
+    <tr style="background-color:teal">
+        <th>NAME</th>
+        <th>BALANCE</th>
+        <th>TYPE</th>
+    </tr>
+    <tr style="background-color:lightgray" align="center">
+        <td th:text="${SimbaAccount.name}"></td>
+        <td th:text="${SimbaAccount.balance}"></td>
+        <td th:text="${SimbaAccount.animalType}"></td>
+    </tr>
+</table>
+</body>
+</html>
