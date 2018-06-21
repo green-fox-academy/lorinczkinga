@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Greenfox Class </title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+</head>
+<body>
+
+<h1> Students of the class </h1>
+
+<ul>
+<li th:each="currentStudent : ${listOfStudents}" th:value="${currentStudent}" th:text="${currentStudent}"></li>
+</ul>
+</body>
+</html>
