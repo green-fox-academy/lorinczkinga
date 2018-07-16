@@ -48,6 +48,14 @@ public class WebController {
         return "index";
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String searchTodo(Model model, @ModelAttribute("title") String title) {
+        if (todoService.getTodoByTitle(title).size() == 0) {
+        model.addAttribute("errorflag", true); }
+        model.addAttribute("searchedTodoList", todoService.getTodoByTitle(title));
+        return "searchresults";
+    }
+
     @GetMapping(value = {"todo/delete"})
     public String deleteTodo(Model model, @RequestParam("id") Long id) {
         todoService.deleteTodo(id);

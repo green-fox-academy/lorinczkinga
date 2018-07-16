@@ -4,15 +4,15 @@ import com.greenfoxacademy.todos.models.Todo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface TodoService {
 
-    public List<Todo> getAllTodo();
-    public List<Todo> getUnfinishedBusinesses();
+    List<Todo> getAllTodo();
+    List<Todo> getUnfinishedBusinesses();
     void save(String title);
     void deleteTodo(Long id);
     void update(Todo editedTodo);
-    public Todo getTodoById(Long id);
+    Todo getTodoById(Long id);
+    List<Todo> getTodoByTitle(String title);
 }
