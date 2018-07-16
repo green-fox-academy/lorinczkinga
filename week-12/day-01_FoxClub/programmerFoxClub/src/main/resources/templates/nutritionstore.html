@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Programmer Fox Club </title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+</head>
+<body>
+
+<ul>
+    <li><a th:href="@{login(name=${fox.name})}"> Information </a></li>
+    <li><a th:href="@{nutritionStore(name=${fox.name})}"> Nutrition Store </a></li>
+    <li><a th:href="@{trickCenter(name=${fox.name})}"> Trick Center </a></li>
+    <li><a th:href="@{actionHistory(name=${fox.name})}"> Action History </a></li>
+    <img src="greenfox.png">
+</ul>
+
+<form action="#" th:object="${fox}" th:action="@{nutritionStore}" method="post">
+    <input type="hidden" th:field="${fox.name}"/>
+
+    <label for="food"> Food </label>
+    <select th:name="food" id="food">
+        <option th:text="${fox.food.foodName}"/>
+        <option th:each="currentFood : ${foodList}"
+                th:value="${currentFood.foodName}" th:text="${currentFood.foodName}"></option>
+    </select>
+    <label for="drink"> Drink </label>
+    <select th:name="drink" id="drink">
+        <option th:text="${fox.drink.drinkName}"/>
+        <option th:each="currentDrink : ${drinkList}"
+                th:value="${currentDrink.drinkName}" th:text="${currentDrink.drinkName}"></option>
+    </select>
+    <input type="submit" value="Change"/>
+</form>
+
+</body>
+</html>
