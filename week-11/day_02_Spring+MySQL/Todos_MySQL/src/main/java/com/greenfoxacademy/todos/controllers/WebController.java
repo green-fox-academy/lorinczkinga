@@ -71,9 +71,9 @@ public class WebController {
         return "index";
     }
 
-    @RequestMapping(value = "/todo/tododpage", method = RequestMethod.GET)
+    @RequestMapping(value = "/todo/todopage", method = RequestMethod.GET)
     public String todoPage(Model model, @RequestParam("id") Long id) {
-        Optional<Todo> todo = todoService.getTodoById(id);
+        Todo todo = todoService.getTodoById(id);
         model.addAttribute("todo", todo);
         return "todopage";
     }

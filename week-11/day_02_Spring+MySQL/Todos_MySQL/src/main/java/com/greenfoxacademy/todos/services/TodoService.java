@@ -14,5 +14,5 @@ public interface TodoService {
     void save(String title);
     void deleteTodo(Long id);
     void update(Todo editedTodo);
-    public Optional<Todo> getTodoById(Long id);
+    public Todo getTodoById(Long id);
 }
