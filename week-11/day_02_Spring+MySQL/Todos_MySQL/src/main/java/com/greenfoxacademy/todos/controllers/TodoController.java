@@ -7,23 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
-@Controller(value = "todo")
-public class WebController {
+@Controller
+public class TodoController {
 
     private final
     TodoService todoService;
 
     @Autowired
-    public WebController(TodoService todoService) {
+    public TodoController(TodoService todoService) {
         this.todoService = todoService;
-    }
-
-    @GetMapping(value = {"/", "/list"})
-    public String getAll(Model model) {
-        model.addAttribute("todos", todoService.getAllTodo());
-        return "index";
     }
 
     @GetMapping(value = {"todo"})
@@ -36,22 +28,22 @@ public class WebController {
         return "index";
     }
 
-    @RequestMapping(value = "/todo/add", method = RequestMethod.GET)
+    @RequestMapping(value = "todo/add", method = RequestMethod.GET)
     public String add() {
-        return "add";
+        return "addTodo";
     }
 
-    @RequestMapping(value = "/todo/save", method = RequestMethod.POST)
+    @RequestMapping(value = "todo/save", method = RequestMethod.POST)
     public String saveTodo(Model model, @ModelAttribute("title") String title) {
         todoService.save(title);
         model.addAttribute("todos", todoService.getAllTodo());
         return "index";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "todo/search", method = RequestMethod.POST)
     public String searchTodo(Model model, @ModelAttribute("title") String title) {
         if (todoService.getTodoByTitle(title).size() == 0) {
-        model.addAttribute("errorflag", true); }
+            model.addAttribute("errorflag", true); }
         model.addAttribute("searchedTodoList", todoService.getTodoByTitle(title));
         return "searchresults";
     }
@@ -67,7 +59,7 @@ public class WebController {
     public String editFormPage(Model model, @RequestParam("id") Long id) {
         model.addAttribute("id", id);
         model.addAttribute("editedTodo", new Todo());
-        return "edit";
+        return "editTodo";
     }
 
     @PostMapping(value = {"todo/edit"})
@@ -79,10 +71,11 @@ public class WebController {
         return "index";
     }
 
-    @RequestMapping(value = "/todo/todopage", method = RequestMethod.GET)
+    @RequestMapping(value = "todo/todopage", method = RequestMethod.GET)
     public String todoPage(Model model, @RequestParam("id") Long id) {
         Todo todo = todoService.getTodoById(id);
         model.addAttribute("todo", todo);
         return "todopage";
     }
+
 }

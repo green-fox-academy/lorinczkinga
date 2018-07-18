@@ -1,5 +1,6 @@
 package com.greenfoxacademy.todos.services;
 
+import com.greenfoxacademy.todos.models.Assignee;
 import com.greenfoxacademy.todos.models.Todo;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +16,6 @@ public interface TodoService {
     void update(Todo editedTodo);
     Todo getTodoById(Long id);
     List<Todo> getTodoByTitle(String title);
+
+
 }
