@@ -1,5 +1,6 @@
 package com.greenfoxacademy.todos.controllers;
 
+import com.greenfoxacademy.todos.models.Todo;
 import com.greenfoxacademy.todos.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class MainController {
     @GetMapping(value = {"/", "/list"})
     public String getAll(Model model)    {
         model.addAttribute("todos", todoService.getAllTodo());
+        model.addAttribute("searchByOptions", Todo.searchOptions);
         return "index";
     }
 }

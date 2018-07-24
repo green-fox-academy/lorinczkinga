@@ -52,11 +52,12 @@ public class TodoController {
     }
 
     @RequestMapping(value = "todo/search", method = RequestMethod.POST)
-    public String searchTodo(Model model, @ModelAttribute("title") String title) {
-        if (todoService.getTodoByTitle(title).size() == 0) {
+    public String searchTodo(Model model, @ModelAttribute("title") String search,
+                             @ModelAttribute("selectedSearchType") String selectedSearchType) {
+        if (todoService.searchTodo(selectedSearchType, search).size() == 0) {
             model.addAttribute("errorflag", true);
         }
-        model.addAttribute("searchedTodoList", todoService.getTodoByTitle(title));
+        model.addAttribute("searchedTodoList", todoService.searchTodo(selectedSearchType, search));
         return "searchresults";
     }
 

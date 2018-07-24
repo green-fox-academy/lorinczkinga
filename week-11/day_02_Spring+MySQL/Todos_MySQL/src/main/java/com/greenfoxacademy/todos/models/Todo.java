@@ -16,6 +16,7 @@ public class Todo {
     private String timestamp;
     private String dueDate;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static String[] searchOptions = new String[]{"Title","Creation time","Due time"};
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Assignee assignee;

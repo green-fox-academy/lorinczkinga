@@ -14,7 +14,7 @@ public interface TodoService {
     void deleteTodo(Long id);
     void update(Todo editedTodo);
     Todo getTodoById(Long id);
-    List<Todo> getTodoByTitle(String title);
+    List<Todo> searchTodo(String searchType, String search);
 
 
 }

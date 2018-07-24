@@ -10,5 +10,6 @@ import java.util.List;
 public interface TodoRepository extends CrudRepository<Todo, Long> {
     List<Todo> findByDoneFalse();
     List<Todo> findByTitleEquals(String title);
-    Todo getOne(Long id);
+    List<Todo> findByTimestampEquals(String timestamp);
+    List<Todo> findByDueDateEquals(String dueDate);
 }

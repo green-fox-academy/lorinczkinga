@@ -50,9 +50,12 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<Todo> getTodoByTitle(String title) {
-        return todoRepository.findByTitleEquals(title);
+    public List<Todo> searchTodo(String searchType, String search) {
+        if (Todo.searchOptions[0].equals(searchType)) {
+            return todoRepository.findByTitleEquals(search);
+        } else if (Todo.searchOptions[1].equals(searchType)) {
+            return todoRepository.findByTimestampEquals(search);
+        } else
+            return todoRepository.findByDueDateEquals(search);
+        }
     }
-
-
-}
