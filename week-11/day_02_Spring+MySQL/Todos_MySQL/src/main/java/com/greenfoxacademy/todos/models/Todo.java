@@ -14,7 +14,7 @@ public class Todo {
     private Boolean done;
     private LocalDateTime timestamp;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Assignee assignee;
 
     public Todo(){

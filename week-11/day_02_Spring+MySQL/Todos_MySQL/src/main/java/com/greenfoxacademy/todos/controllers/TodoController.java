@@ -45,8 +45,9 @@ public class TodoController {
                            @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
         Todo todoToSave = new Todo(title, assigneeService.getAssigneeById(selectedAssigneeId));
         todoService.saveTodo(todoToSave);
-        assigneeService.getAssigneeById(selectedAssigneeId).getTodosOfTheAssignee().add(todoToSave);
-        assigneeService.update(assigneeService.getAssigneeById(selectedAssigneeId));
+        Assignee selectedAssignee = assigneeService.getAssigneeById(selectedAssigneeId);
+        selectedAssignee.getTodosOfTheAssignee().add(todoToSave);
+        assigneeService.update(selectedAssignee);
         return "redirect:/list";
     }
 
@@ -80,8 +81,6 @@ public class TodoController {
         editedTodo.setId(todoId);
         editedTodo.setAssignee(assigneeService.getAssigneeById(selectedAssigneeId));
         todoService.update(editedTodo);
-        assigneeService.getAssigneeById(selectedAssigneeId).getTodosOfTheAssignee().add(editedTodo);
-        assigneeService.update(assigneeService.getAssigneeById(selectedAssigneeId));
         return "redirect:/list";
     }
 

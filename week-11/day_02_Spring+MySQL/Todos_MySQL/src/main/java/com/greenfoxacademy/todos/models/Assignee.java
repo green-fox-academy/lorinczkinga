@@ -12,7 +12,7 @@ public class Assignee {
     private String name;
     private String email;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "assignee", fetch = FetchType.EAGER)
     private Set<Todo> todosOfTheAssignee = new HashSet<>();
 
     public Set<Todo> getTodosOfTheAssignee() {
