@@ -24,7 +24,7 @@ public class TodoController {
         this.assigneeService = assigneeService;
     }
 
-    @GetMapping(value = {"todo"})
+    @GetMapping(value = "todo")
     public String getUnfinishedTodos(Model model, @RequestParam("isActive") Boolean isActive) {
         if (isActive) {
             model.addAttribute("todos", todoService.getUnfinishedBusinesses());
@@ -60,13 +60,13 @@ public class TodoController {
         return "searchresults";
     }
 
-    @GetMapping(value = {"todo/delete"})
+    @GetMapping(value = "todo/delete")
     public String deleteTodo(@RequestParam("id") Long id) {
         todoService.deleteTodo(id);
         return "redirect:/list";
     }
 
-    @GetMapping(value = {"todo/edit"})
+    @GetMapping(value = "todo/edit")
     public String editFormPage(Model model, @RequestParam("id") Long id) {
         model.addAttribute("assigneeList", assigneeService.getAllAssignees());
         model.addAttribute("todoId", id);
@@ -74,10 +74,11 @@ public class TodoController {
         return "editTodo";
     }
 
-    @PostMapping(value = {"todo/edit"})
+    @PostMapping(value = "todo/edit")
     public String update(@ModelAttribute(value = "editedTodo") Todo editedTodo,
                          @ModelAttribute(value="todoId") Long todoId,
                          @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
+        editedTodo.setTimestamp(todoService.getTodoById(todoId).getTimestamp());
         editedTodo.setId(todoId);
         editedTodo.setAssignee(assigneeService.getAssigneeById(selectedAssigneeId));
         todoService.update(editedTodo);

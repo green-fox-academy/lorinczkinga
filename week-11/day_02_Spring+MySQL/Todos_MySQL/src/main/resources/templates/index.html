@@ -25,6 +25,7 @@
         <th>Urgent</th>
         <th>Assignee</th>
         <th>Date of creation</th>
+        <th>Due date</th>
         <th></th>
         <th></th>
     </tr>
@@ -33,8 +34,9 @@
         <td><a th:href="@{/todo/todopage(id=${currentTodo.id})}"><span th:text="${currentTodo.title}"></span></a></td>
         <td th:text="${currentTodo.done}"></td>
         <td th:text="${currentTodo.urgent}"></td>
-        <td th:text="${currentTodo.assignee.name}"></td>
+        <td><a th:href="@{/assignee/todolist(id=${currentTodo.assignee.id})}" th:text="${currentTodo.assignee.name}"></a></td>
         <td th:text="${currentTodo.timestamp}"></td>
+        <td th:text="${currentTodo.dueDate}"></td>
         <td><a th:href="@{/todo/delete(id=${currentTodo.id})}" > delete </a></td>
         <td><a th:href="@{/todo/edit(id=${currentTodo.id})}" > edit </a></td>
     </tr>

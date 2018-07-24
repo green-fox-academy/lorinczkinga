@@ -26,6 +26,9 @@
                 th:value="${currentAssignee.id}" th:text="${currentAssignee.name}"></option>
     </select></div>
 
+    <p><label for="dueDate"> Due date: </label>
+        <input id="dueDate" type="datetime-local" th:field="*{dueDate}"/></p>
+
     <p><input type="submit" value="Edit"/></p>
 </form>
 
