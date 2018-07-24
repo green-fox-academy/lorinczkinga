@@ -1,9 +1,6 @@
 package com.greenfoxacademy.todos.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,29 +14,35 @@ public class Todo {
     private Boolean done;
     private LocalDateTime timestamp;
 
+    @ManyToOne
+    private Assignee assignee;
+
     public Todo(){
         this.timestamp = LocalDateTime.now();
     }
 
-    public Todo(String title) {
+    public Todo(String title, Assignee assignee) {
         this.title = title;
         this.urgent = false;
         this.done = false;
+        this.assignee = assignee;
         this.timestamp = LocalDateTime.now();
     }
 
-    public Todo(String title, Boolean urgent, Boolean done) {
+    public Todo(String title, Boolean urgent, Boolean done, Assignee assignee) {
         this.title = title;
         this.urgent = urgent;
         this.done = done;
+        this.assignee = assignee;
         this.timestamp = LocalDateTime.now();
     }
 
-    public Todo(Long id, String title, Boolean urgent, Boolean done) {
+    public Todo(Long id, String title, Boolean urgent, Boolean done, Assignee assignee) {
         this.id = id;
         this.title = title;
         this.urgent = urgent;
         this.done = done;
+        this.assignee = assignee;
         this.timestamp = LocalDateTime.now();
     }
 
@@ -81,5 +84,14 @@ public class Todo {
 
     public void setDone(Boolean done) {
         this.done = done;
+    }
+
+
+    public Assignee getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(Assignee assignee) {
+        this.assignee = assignee;
     }
 }

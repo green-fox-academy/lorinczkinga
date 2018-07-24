@@ -1,9 +1,7 @@
 package com.greenfoxacademy.todos.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 public class Assignee {
@@ -13,6 +11,23 @@ public class Assignee {
     private Long id;
     private String name;
     private String email;
+
+    @OneToMany
+    private Set<Todo> todosOfTheAssignee = new HashSet<>();
+
+    public Set<Todo> getTodosOfTheAssignee() {
+        return todosOfTheAssignee;
+    }
+
+    public Assignee(String name, String email, Set<Todo> todosOfTheAssignee) {
+        this.name = name;
+        this.email = email;
+        this.todosOfTheAssignee = todosOfTheAssignee;
+    }
+
+    public void setTodosOfTheAssignee(Set<Todo> todosOfTheAssignee) {
+        this.todosOfTheAssignee = todosOfTheAssignee;
+    }
 
     public Assignee() {
     }

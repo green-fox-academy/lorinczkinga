@@ -1,6 +1,8 @@
 package com.greenfoxacademy.todos.controllers;
 
+import com.greenfoxacademy.todos.models.Assignee;
 import com.greenfoxacademy.todos.models.Todo;
+import com.greenfoxacademy.todos.services.AssigneeService;
 import com.greenfoxacademy.todos.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +15,13 @@ public class TodoController {
     private final
     TodoService todoService;
 
+    private final
+    AssigneeService assigneeService;
+
     @Autowired
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, AssigneeService assigneeService) {
         this.todoService = todoService;
+        this.assigneeService = assigneeService;
     }
 
     @GetMapping(value = {"todo"})
@@ -29,53 +35,59 @@ public class TodoController {
     }
 
     @RequestMapping(value = "todo/add", method = RequestMethod.GET)
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("assigneeList", assigneeService.getAllAssignees());
         return "addTodo";
     }
 
     @RequestMapping(value = "todo/save", method = RequestMethod.POST)
-    public String saveTodo(Model model, @ModelAttribute("title") String title) {
-        todoService.save(title);
-        model.addAttribute("todos", todoService.getAllTodo());
-        return "index";
+    public String saveTodo(@ModelAttribute("title") String title,
+                           @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
+        Todo todoToSave = new Todo(title, assigneeService.getAssigneeById(selectedAssigneeId));
+        todoService.saveTodo(todoToSave);
+        assigneeService.getAssigneeById(selectedAssigneeId).getTodosOfTheAssignee().add(todoToSave);
+        assigneeService.update(assigneeService.getAssigneeById(selectedAssigneeId));
+        return "redirect:/list";
     }
 
     @RequestMapping(value = "todo/search", method = RequestMethod.POST)
     public String searchTodo(Model model, @ModelAttribute("title") String title) {
         if (todoService.getTodoByTitle(title).size() == 0) {
-            model.addAttribute("errorflag", true); }
+            model.addAttribute("errorflag", true);
+        }
         model.addAttribute("searchedTodoList", todoService.getTodoByTitle(title));
         return "searchresults";
     }
 
     @GetMapping(value = {"todo/delete"})
-    public String deleteTodo(Model model, @RequestParam("id") Long id) {
+    public String deleteTodo(@RequestParam("id") Long id) {
         todoService.deleteTodo(id);
-        model.addAttribute("todos", todoService.getAllTodo());
-        return "index";
+        return "redirect:/list";
     }
 
     @GetMapping(value = {"todo/edit"})
     public String editFormPage(Model model, @RequestParam("id") Long id) {
-        model.addAttribute("id", id);
-        model.addAttribute("editedTodo", new Todo());
+        model.addAttribute("assigneeList", assigneeService.getAllAssignees());
+        model.addAttribute("todoId", id);
+        model.addAttribute("editedTodo", todoService.getTodoById(id));
         return "editTodo";
     }
 
     @PostMapping(value = {"todo/edit"})
-    public String update(Model model, @ModelAttribute(value = "editedTodo") Todo editedTodo,
-                         @ModelAttribute(value="id") Long id) {
-        editedTodo.setId(id);
+    public String update(@ModelAttribute(value = "editedTodo") Todo editedTodo,
+                         @ModelAttribute(value="todoId") Long todoId,
+                         @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
+        editedTodo.setId(todoId);
+        editedTodo.setAssignee(assigneeService.getAssigneeById(selectedAssigneeId));
         todoService.update(editedTodo);
-        model.addAttribute("todos", todoService.getAllTodo());
-        return "index";
+        assigneeService.getAssigneeById(selectedAssigneeId).getTodosOfTheAssignee().add(editedTodo);
+        assigneeService.update(assigneeService.getAssigneeById(selectedAssigneeId));
+        return "redirect:/list";
     }
 
     @RequestMapping(value = "todo/todopage", method = RequestMethod.GET)
     public String todoPage(Model model, @RequestParam("id") Long id) {
-        Todo todo = todoService.getTodoById(id);
-        model.addAttribute("todo", todo);
+        model.addAttribute("todo", todoService.getTodoById(id));
         return "todopage";
     }
-
 }

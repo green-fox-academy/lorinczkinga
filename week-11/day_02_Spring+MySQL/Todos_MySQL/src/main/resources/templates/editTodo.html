@@ -8,20 +8,28 @@
 <h1> Edit todo: </h1>
 
 <form action="#" th:object="${editedTodo}" th:action="@{/todo/edit}" method="post">
-    <input type="hidden" name="id" th:value="${id}"/></p>
+
+    <input type="hidden" name="todoId" th:value="${todoId}"/></p>
+
     <p><label for="title"> Todo description: </label>
         <input type="text" id="title" th:field="*{title}"/></p>
-    <div>
-        <label th:for="Done" th:text="'Done'"></label>
-        <input type="checkbox" th:field="*{done}" />
-    </div>
-    <div>
-        <label th:for="Urgent" th:text="'Urgent'"></label>
-        <input type="checkbox" th:field="*{urgent}" />
-    </div>
+
+    <div><label for="done"> Done: </label>
+        <input id="done" type="checkbox" th:field="*{done}" /></div>
+
+    <div><label for="urgent"> Urgent: </label>
+        <input id="urgent" type="checkbox" th:value="*{urgent}" th:field="*{urgent}" /></div>
+
+    <label for="assignee"> Select assignee: </label>
+    <div><select id="assignee" th:name="selectedAssigneeId">
+        <option th:each="currentAssignee : ${assigneeList}"
+                th:value="${currentAssignee.id}" th:text="${currentAssignee.name}"></option>
+    </select></div>
+
     <p><input type="submit" value="Edit"/></p>
-    <span><a href="/list"> Cancel </a></span>
 </form>
+
+<p><a href="/list"> Cancel </a></p>
 
 </body>
 </html>

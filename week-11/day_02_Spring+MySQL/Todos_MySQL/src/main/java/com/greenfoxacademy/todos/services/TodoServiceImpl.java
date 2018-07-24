@@ -30,8 +30,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void save(String title) {
-        todoRepository.save(new Todo(title));
+    public void saveTodo(Todo todo) {
+        todoRepository.save(todo);
     }
 
     @Override

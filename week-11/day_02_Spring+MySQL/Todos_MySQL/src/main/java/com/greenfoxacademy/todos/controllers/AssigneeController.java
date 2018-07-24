@@ -30,10 +30,9 @@ public class AssigneeController {
     }
 
     @RequestMapping(value = "assignee/save", method = RequestMethod.POST)
-    public String saveAssignee(Model model, @ModelAttribute("name") String name,
+    public String saveAssignee(@ModelAttribute("name") String name,
                            @ModelAttribute("email") String email) {
         assigneeService.save(name, email);
-        model.addAttribute("assignees", assigneeService.getAllAssignees());
         return "redirect:/assignee";
     }
 
@@ -46,9 +45,8 @@ public class AssigneeController {
     }
 
     @GetMapping(value = {"assignee/delete"})
-    public String deleteAssignee(Model model, @RequestParam("id") Long id) {
+    public String deleteAssignee(@RequestParam("id") Long id) {
         assigneeService.deleteTodo(id);
-        model.addAttribute("todos", assigneeService.getAllAssignees());
         return "redirect:/assignee";
     }
 
@@ -60,11 +58,10 @@ public class AssigneeController {
     }
 
     @PostMapping(value = {"assignee/edit"})
-    public String updateAssignee(Model model, @ModelAttribute(value = "editedAssignee") Assignee editedAssignee,
+    public String updateAssignee(@ModelAttribute(value = "editedAssignee") Assignee editedAssignee,
                          @ModelAttribute(value="id") Long id) {
         editedAssignee.setId(id);
         assigneeService.update(editedAssignee);
-        model.addAttribute("assignees", assigneeService.getAllAssignees());
         return "redirect:/assignee";
     }
 }

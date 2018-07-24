@@ -10,6 +10,13 @@
 <form action="#" th:action="@{/todo/save}" method="post">
     <p><label for="title"> Title: </label>
         <input type="text" id="title" name="title"/></p>
+
+    <label for="assignee"> Select assignee: </label>
+    <div><select id="assignee" th:name="selectedAssigneeId">
+        <option th:each="currentAssignee : ${assigneeList}"
+                th:value="${currentAssignee.id}" th:text="${currentAssignee.name}"></option> </select>
+    </div>
+
     <p><input type="submit" value="Add"/></p>
 </form>
 <p><a href="/list"> Cancel </a></p>
