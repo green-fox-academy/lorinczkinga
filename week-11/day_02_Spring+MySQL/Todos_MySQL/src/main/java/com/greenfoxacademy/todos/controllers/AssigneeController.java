@@ -3,6 +3,7 @@ package com.greenfoxacademy.todos.controllers;
 import com.greenfoxacademy.todos.models.Assignee;
 import com.greenfoxacademy.todos.services.AssigneeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,5 +64,12 @@ public class AssigneeController {
         editedAssignee.setId(id);
         assigneeService.update(editedAssignee);
         return "redirect:/assignee";
+    }
+
+    @GetMapping(value = {"assignee/todolist"})
+    public String todosOfTheAssignee(Model model, @RequestParam("id") Long id) {
+        System.out.println(assigneeService.getAssigneeById(id).getTodosOfTheAssignee());
+        model.addAttribute("todolist", assigneeService.getAssigneeById(id).getTodosOfTheAssignee());
+        return "assigneestodolist";
     }
 }

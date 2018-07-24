@@ -26,12 +26,14 @@
     </tr>
     <tr th:each="currentAssignee : ${allAssignees}" style="background-color:lightgray" align="center">
         <td th:text="${currentAssignee.id}"></td>
-        <td th:text="${currentAssignee.name}"></td>
+        <td><a th:href="@{/assignee/todolist(id=${currentAssignee.id})}" th:text="${currentAssignee.name}"></a></td>
         <td th:text="${currentAssignee.email}"></td>
         <td><a th:href="@{/assignee/delete(id=${currentAssignee.id})}"> delete </a></td>
         <td><a th:href="@{/assignee/edit(id=${currentAssignee.id})}"> edit </a></td>
     </tr>
 </table>
+
+<p><a href="/list"> Cancel </a></p>
 
 </body>
 </html>
