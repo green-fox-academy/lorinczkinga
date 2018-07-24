@@ -12,14 +12,14 @@
 <p> <a href="/assignee"> List all assignees </a></p>
 
 <form action="#" th:action="@{todo/search}" method="post">
-    <p><label for="search"> Search by... </label>
+    <label for="search"> Search by... </label>
 
     <div><select id="search" th:name="selectedSearchType">
         <option th:each="currentOption : ${searchByOptions}"
                 th:value="${currentOption}" th:text="${currentOption}"></option>
     </select></div>
-    
-        <input type="text" name="search"/>
+
+    <p><input type="text" name="search"/>
         <input type="submit"  value="Search"/></p>
 </form>
 
