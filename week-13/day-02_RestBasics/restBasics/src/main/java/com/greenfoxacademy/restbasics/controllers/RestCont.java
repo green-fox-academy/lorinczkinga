@@ -30,7 +30,7 @@ public class RestCont {
 
     @GetMapping("appenda/{appendable}")
     public Object doubling(@PathVariable String appendable) {
-            return new AppendA(appendable);
+        return new AppendA(appendable);
     }
 
     @PostMapping("/dountil/{what}")
@@ -40,6 +40,24 @@ public class RestCont {
         } else {
             DoUntil doUntil = new DoUntil();
             return doUntil.doUntil(what, until);
+        }
+    }
+
+    @PostMapping("/arrays")
+    public Object doUntil(@RequestBody ExpectedObject object) {
+
+        if (object.numbers.length == 0) {
+            return new Error("Please provide a number!");
+        } else {
+            if (object.what.equals("sum")) {
+                return new SumMultiply().sum(object.numbers);
+            } else if (object.what.equals("multiply")) {
+                return new SumMultiply().multiply(object.numbers);
+            } else if (object.what.equals("double")) {
+                return new DoublingArray().doubling(object.numbers);
+            } else {
+                return new Error("Please provide an available operation: sum, multiply or double!");
+            }
         }
     }
 }
