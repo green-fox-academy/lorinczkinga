@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Fox Club </title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+</head>
+<body>
+<h1> Welcome to the Programmer Fox Club </h1>
+
+<span th:if="${errorflag}" style="color: red"> You have provided a name that has not been used before, add it as a new one!</span>
+<span th:unless="${errorflag}"> Please provide a name, so you can associate it to your pet! </span>
+
+<form action="#" th:action="@{/login}" method="get">
+    <p><label for="name"> Name </label>
+        <input type="text" id="name" name="name"/>
+        <input type="hidden" th:value="${errorflag}" name="errorflag" />
+        <span th:if="${errorflag}"><input type="submit" value="Add"/></span>
+        <span th:unless="${errorflag}"><input type="submit" value="GO"/></span>
+        </p>
+</form>
+</body>
+</html>

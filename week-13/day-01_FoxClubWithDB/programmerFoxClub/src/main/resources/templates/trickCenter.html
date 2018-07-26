@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Programmer Fox Club </title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+</head>
+<body>
+
+<ul>
+    <li><a th:href="@{login(name=${fox.name})}"> Information </a></li>
+    <li><a th:href="@{nutritionStore(name=${fox.name})}"> Nutrition Store </a></li>
+    <li><a th:href="@{trickCenter(name=${fox.name})}"> Trick Center </a></li>
+    <li><a th:href="@{actionHistory(name=${fox.name})}"> Action History </a></li>
+    <img src="greenfox.png">
+</ul>
+
+<span th:if="${fox.getTricksToLearn().isEmpty()}" style="color: red"> All the available tricks have been learned. </span>
+<span th:unless="${fox.getTricksToLearn().isEmpty()}">
+<form action="#" th:object="${fox}" th:action="@{trickCenter}" method="post">
+    <input type="hidden" th:field="${fox.name}"/>
+    <label for="trick"> Tricks: </label>
+    <select th:name="pickedTrick" id="trick">
+        <option th:each="currentTrick : ${fox.getTricksToLearn()}"
+                th:value="${currentTrick.trickName}" th:text="${currentTrick.trickName}"></option>
+    </select>
+    <input type="submit" value="Change"/>
+</form>
+</span>
+</body>
+</html>

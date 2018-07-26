@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Programmer Fox Club </title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+</head>
+<body>
+
+<ul>
+    <li><a th:href="@{login(name=${fox.name})}"> Information </a> </li>
+    <li><a th:href="@{nutritionStore(name=${fox.name})}"> Nutrition Store </a> </li>
+    <li><a th:href="@{trickCenter(name=${fox.name})}"> Trick Center </a> </li>
+    <li><a th:href="@{actionHistory(name=${fox.name})}"> Action History </a> </li>
+    <img src="greenfox.png" >
+</ul>
+
+<p th:text="'This is ' + ${fox.name} + '. Currently living on ' + ${fox.food.getFoodName()} + ' and '
+                       + ${fox.drink.getDrinkName()} +'. He knows ' + ${fox.getListOfLearnedTricks().size()} + ' tricks.'"></p>
+<h2> Known tricks</h2>
+<ul>
+    <span th:if="${!fox.getListOfLearnedTricks().isEmpty()}">
+        <li th:each="currentTrick : ${fox.getListOfLearnedTricks()}" th:text="${currentTrick.getTrickName()}"> </li></span>
+    <span th:unless="${!fox.getListOfLearnedTricks().isEmpty()}" style="color: red"> You know no tricks, yet. Go and learn some. </span>
+</ul>
+</body>
+</html>
