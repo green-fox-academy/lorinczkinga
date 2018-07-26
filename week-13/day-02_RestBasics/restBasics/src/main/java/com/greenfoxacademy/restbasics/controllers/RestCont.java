@@ -1,13 +1,8 @@
 package com.greenfoxacademy.restbasics.controllers;
 
-import com.greenfoxacademy.restbasics.models.AppendA;
-import com.greenfoxacademy.restbasics.models.Doubling;
-import com.greenfoxacademy.restbasics.models.Greeter;
+import com.greenfoxacademy.restbasics.models.*;
 import com.greenfoxacademy.restbasics.models.Error;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RestCont {
@@ -36,5 +31,15 @@ public class RestCont {
     @GetMapping("appenda/{appendable}")
     public Object doubling(@PathVariable String appendable) {
             return new AppendA(appendable);
+    }
+
+    @PostMapping("/dountil/{what}")
+    public Object doUntil(@PathVariable("what") String what, @RequestBody(required = false) Until until) {
+        if (until == null) {
+            return new Error("Please provide a number!");
+        } else {
+            DoUntil doUntil = new DoUntil();
+            return doUntil.doUntil(what, until);
+        }
     }
 }
