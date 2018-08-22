@@ -3,11 +3,11 @@ package com.greenfoxacademy.todos.controllers;
 import com.greenfoxacademy.todos.models.Assignee;
 import com.greenfoxacademy.todos.services.AssigneeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/assignee")
 @Controller
 public class AssigneeController {
 
@@ -19,25 +19,25 @@ public class AssigneeController {
         this.assigneeService = assigneeService;
     }
 
-    @RequestMapping(value = "/assignee", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String getListOfAssignees(Model model) {
         model.addAttribute("allAssignees", assigneeService.getAllAssignees());
         return "listOfAssignees";
     }
 
-    @RequestMapping(value = "assignee/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add() {
         return "addAssignee";
     }
 
-    @RequestMapping(value = "assignee/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveAssignee(@ModelAttribute("name") String name,
                            @ModelAttribute("email") String email) {
         assigneeService.save(name, email);
-        return "redirect:/assignee";
+        return "redirect:";
     }
 
-    @RequestMapping(value = "assignee/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchAssignee(Model model, @ModelAttribute("name") String name) {
         if (assigneeService.getAssigneeByName(name).size() == 0) {
             model.addAttribute("errorflag", true); }
@@ -45,28 +45,28 @@ public class AssigneeController {
         return "assigneeSearchResults";
     }
 
-    @GetMapping(value = {"assignee/delete"})
+    @GetMapping(value = {"/delete"})
     public String deleteAssignee(@RequestParam("id") Long id) {
         assigneeService.deleteTodo(id);
-        return "redirect:/assignee";
+        return "redirect:";
     }
 
-    @GetMapping(value = {"assignee/edit"})
+    @GetMapping(value = {"/edit"})
     public String editFormPage(Model model, @RequestParam("id") Long id) {
         model.addAttribute("id", id);
         model.addAttribute("editedAssignee", new Assignee());
         return "editAssignee";
     }
 
-    @PostMapping(value = {"assignee/edit"})
+    @PostMapping(value = {"/edit"})
     public String updateAssignee(@ModelAttribute(value = "editedAssignee") Assignee editedAssignee,
                          @ModelAttribute(value="id") Long id) {
         editedAssignee.setId(id);
         assigneeService.update(editedAssignee);
-        return "redirect:/assignee";
+        return "redirect:";
     }
 
-    @GetMapping(value = {"assignee/todolist"})
+    @GetMapping(value = {"/todolist"})
     public String todosOfTheAssignee(Model model, @RequestParam("id") Long id) {
         System.out.println(assigneeService.getAssigneeById(id).getTodosOfTheAssignee());
         model.addAttribute("todolist", assigneeService.getAssigneeById(id).getTodosOfTheAssignee());

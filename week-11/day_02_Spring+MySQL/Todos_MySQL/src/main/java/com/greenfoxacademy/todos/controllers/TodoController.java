@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/todo")
 @Controller
 public class TodoController {
 
@@ -24,7 +25,7 @@ public class TodoController {
         this.assigneeService = assigneeService;
     }
 
-    @GetMapping(value = "todo")
+    @GetMapping
     public String getUnfinishedTodos(Model model, @RequestParam("isActive") Boolean isActive) {
         if (isActive) {
             model.addAttribute("todos", todoService.getUnfinishedBusinesses());
@@ -34,20 +35,20 @@ public class TodoController {
         return "index";
     }
 
-    @RequestMapping(value = "todo/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("assigneeList", assigneeService.getAllAssignees());
         return "addTodo";
     }
 
-    @RequestMapping(value = "todo/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String createTodo(@ModelAttribute("title") String title,
                              @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
         todoService.saveTodo(title, selectedAssigneeId);
-        return "redirect:/list";
+        return "redirect:../list";
     }
 
-    @RequestMapping(value = "todo/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchTodo(Model model, @ModelAttribute("search") String search,
                              @ModelAttribute("selectedSearchType") String selectedSearchType) {
         if (todoService.searchTodo(selectedSearchType, search).size() == 0) {
@@ -57,13 +58,13 @@ public class TodoController {
         return "searchresults";
     }
 
-    @GetMapping(value = "todo/delete")
+    @GetMapping(value = "/delete")
     public String deleteTodo(@RequestParam("id") Long id) {
         todoService.deleteTodo(id);
-        return "redirect:/list";
+        return "redirect:../list";
     }
 
-    @GetMapping(value = "todo/edit")
+    @GetMapping(value = "/edit")
     public String editFormPage(Model model, @RequestParam("id") Long id) {
         model.addAttribute("assigneeList", assigneeService.getAllAssignees());
         model.addAttribute("todoId", id);
@@ -71,7 +72,7 @@ public class TodoController {
         return "editTodo";
     }
 
-    @PostMapping(value = "todo/edit")
+    @PostMapping(value = "/edit")
     public String update(@ModelAttribute(value = "editedTodo") Todo editedTodo,
                          @ModelAttribute(value="todoId") Long todoId,
                          @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
@@ -79,10 +80,10 @@ public class TodoController {
         editedTodo.setId(todoId);
         editedTodo.setAssignee(assigneeService.getAssigneeById(selectedAssigneeId));
         todoService.update(editedTodo);
-        return "redirect:/list";
+        return "redirect:../list";
     }
 
-    @RequestMapping(value = "todo/todopage", method = RequestMethod.GET)
+    @RequestMapping(value = "/todopage", method = RequestMethod.GET)
     public String todoPage(Model model, @RequestParam("id") Long id) {
         model.addAttribute("todo", todoService.getTodoById(id));
         return "todopage";
