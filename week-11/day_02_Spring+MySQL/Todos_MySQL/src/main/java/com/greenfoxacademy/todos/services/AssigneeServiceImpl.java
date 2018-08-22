@@ -14,9 +14,13 @@ public class AssigneeServiceImpl implements AssigneeService {
     private final
     AssigneeRepository assigneeRepository;
 
+    private final
+    TodoService todoService;
+
     @Autowired
-    public AssigneeServiceImpl(AssigneeRepository assigneeRepository) {
+    public AssigneeServiceImpl(AssigneeRepository assigneeRepository, TodoService todoService) {
         this.assigneeRepository = assigneeRepository;
+        this.todoService = todoService;
     }
 
     @Override
@@ -37,7 +41,8 @@ public class AssigneeServiceImpl implements AssigneeService {
     }
 
     @Override
-    public void update(Assignee editedAssignee) {
+    public void update(Assignee editedAssignee, Long id) {
+        editedAssignee.setId(id);
         assigneeRepository.save(editedAssignee);
     }
 
@@ -49,6 +54,13 @@ public class AssigneeServiceImpl implements AssigneeService {
     @Override
     public List<Assignee> getAssigneeByName(String name) {
         return assigneeRepository.findByNameEquals(name);
+    }
+
+    @Override
+    public void setTodoToAssignee(Long todoId, Long AssigneeId) {
+        Assignee assigneeToUpdate = assigneeRepository.findById(AssigneeId).get();
+        assigneeToUpdate.getTodosOfTheAssignee().add(todoService.getTodoById(todoId));
+        assigneeRepository.save(assigneeToUpdate);
     }
 
 }

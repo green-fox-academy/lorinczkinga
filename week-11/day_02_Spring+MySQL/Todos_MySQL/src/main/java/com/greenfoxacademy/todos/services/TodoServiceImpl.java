@@ -35,12 +35,10 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void saveTodo(String title, Long AssigneeId) {
-        Todo todoToSave = new Todo(title, assigneeService.getAssigneeById(AssigneeId));
+    public void saveTodo(String title, Long assigneeId) {
+        Todo todoToSave = new Todo(title, assigneeService.getAssigneeById(assigneeId));
         todoRepository.save(todoToSave);
-        Assignee assigneeToUpdate = assigneeService.getAssigneeById(AssigneeId);
-        assigneeToUpdate.getTodosOfTheAssignee().add(todoToSave);
-        assigneeService.update(assigneeToUpdate);
+        assigneeService.setTodoToAssignee(todoToSave.getId(), assigneeId);
     }
 
     @Override

@@ -61,14 +61,12 @@ public class AssigneeController {
     @PostMapping(value = {"/edit"})
     public String updateAssignee(@ModelAttribute(value = "editedAssignee") Assignee editedAssignee,
                          @ModelAttribute(value="id") Long id) {
-        editedAssignee.setId(id);
-        assigneeService.update(editedAssignee);
+        assigneeService.update(editedAssignee, id);
         return "redirect:";
     }
 
     @GetMapping(value = {"/todolist"})
     public String todosOfTheAssignee(Model model, @RequestParam("id") Long id) {
-        System.out.println(assigneeService.getAssigneeById(id).getTodosOfTheAssignee());
         model.addAttribute("todolist", assigneeService.getAssigneeById(id).getTodosOfTheAssignee());
         return "assigneestodolist";
     }
