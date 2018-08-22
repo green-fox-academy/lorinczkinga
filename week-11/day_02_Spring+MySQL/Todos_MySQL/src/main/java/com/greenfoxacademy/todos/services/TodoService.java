@@ -10,7 +10,7 @@ public interface TodoService {
 
     List<Todo> getAllTodo();
     List<Todo> getUnfinishedBusinesses();
-    void saveTodo(Todo todo);
+    void saveTodo(String title, Long AssigneeId);
     void deleteTodo(Long id);
     void update(Todo editedTodo);
     Todo getTodoById(Long id);

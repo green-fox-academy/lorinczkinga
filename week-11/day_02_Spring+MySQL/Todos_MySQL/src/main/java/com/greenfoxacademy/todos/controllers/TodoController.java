@@ -41,13 +41,9 @@ public class TodoController {
     }
 
     @RequestMapping(value = "todo/save", method = RequestMethod.POST)
-    public String saveTodo(@ModelAttribute("title") String title,
-                           @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
-        Todo todoToSave = new Todo(title, assigneeService.getAssigneeById(selectedAssigneeId));
-        todoService.saveTodo(todoToSave);
-        Assignee selectedAssignee = assigneeService.getAssigneeById(selectedAssigneeId);
-        selectedAssignee.getTodosOfTheAssignee().add(todoToSave);
-        assigneeService.update(selectedAssignee);
+    public String createTodo(@ModelAttribute("title") String title,
+                             @ModelAttribute(value = "selectedAssigneeId") Long selectedAssigneeId) {
+        todoService.saveTodo(title, selectedAssigneeId);
         return "redirect:/list";
     }
 
