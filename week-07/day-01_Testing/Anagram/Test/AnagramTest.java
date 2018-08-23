@@ -17,6 +17,11 @@ public class AnagramTest {
         assertTrue(myAnagram.anagramFunction("", ""));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testAnagramFunctionWithNull() throws NullPointerException{
+        assertTrue(myAnagram.anagramFunction(null, null));
+    }
+
     @Test
     public void testAnagramFunctionWithAnagram() {
         assertTrue(myAnagram.anagramFunction("aba aba", "aba aba"));
