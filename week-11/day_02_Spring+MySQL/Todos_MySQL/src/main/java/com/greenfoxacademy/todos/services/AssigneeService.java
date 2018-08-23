@@ -1,9 +1,11 @@
 package com.greenfoxacademy.todos.services;
 
 import com.greenfoxacademy.todos.models.Assignee;
+import com.greenfoxacademy.todos.models.Todo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface AssigneeService {
@@ -12,6 +14,6 @@ public interface AssigneeService {
     void deleteTodo(Long id);
     void update(Assignee editedAssignee, Long id);
     Assignee getAssigneeById(Long id);
-    List<Assignee> getAssigneeByName(String name);
-    void setTodoToAssignee(Long todoId, Long AssigneeId);
+    Optional<Assignee> getAssigneeByName(String name);
+    void setTodoToAssignee(Todo todo, Long AssigneeId);
 }

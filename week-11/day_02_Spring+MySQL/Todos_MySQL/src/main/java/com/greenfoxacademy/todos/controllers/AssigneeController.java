@@ -39,9 +39,9 @@ public class AssigneeController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String searchAssignee(Model model, @ModelAttribute("name") String name) {
-        if (assigneeService.getAssigneeByName(name).size() == 0) {
-            model.addAttribute("errorflag", true); }
-        model.addAttribute("searchedAssignees", assigneeService.getAssigneeByName(name));
+        if (assigneeService.getAssigneeByName(name).isPresent()) {
+            model.addAttribute("searchedAssignees", assigneeService.getAssigneeByName(name)); }
+        model.addAttribute("errorflag", true);
         return "assigneeSearchResults";
     }
 
