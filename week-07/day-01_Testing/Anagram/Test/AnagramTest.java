@@ -1,14 +1,14 @@
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class AnagramTest {
 
-    private Anagram myAnagram;
+    private static Anagram myAnagram;
 
-    @Before
-    public void init() {
+    @BeforeClass
+    public static void init() {
         myAnagram = new Anagram();
     }
 
